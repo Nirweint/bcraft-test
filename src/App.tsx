@@ -4,9 +4,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "./pages/Login";
 import {ChangePassword} from "./pages/ChangePassword";
 import {PATH} from "./constants";
-import {Header} from "./components/Header";
-
-
+import {Header} from "./components/header/Header";
 
 function App() {
 

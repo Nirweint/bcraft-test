@@ -3,22 +3,22 @@ import {authAPI} from "../../api";
 
 export type AppStateType = {
     error: string | null
+    status: string | null
     auth: boolean
-    signUpSuccess: boolean
 }
 
 export enum APP_ACTIONS {
     AUTH_ME = "appReducer/AUTH_ME",
-    SIGN_UP_SUCCESS = "appReducer/SIGN_UP_SUCCESS",
     SET_ERROR = "appReducer/SET_ERROR",
+    SET_STATUS = "appReducer/SET_STATUS",
 }
 
-export type AppActionsType = AuthMeActionType | SetSignUpSuccessType | SetErrorActionType
+export type AppActionsType = AuthMeActionType | SetErrorActionType | SetStatusActionType
 
 const initState: AppStateType = {
     error: null,
     auth: false,
-    signUpSuccess: false,
+    status: null,
 }
 
 export const appReducer = (state = initState, action: AppActionsType): AppStateType => {
@@ -40,11 +40,11 @@ export const authMe = (payload: boolean) => {
     } as const
 }
 
-export type SetSignUpSuccessType = ReturnType<typeof setSignUpSuccess>
-export const setSignUpSuccess = (payload: boolean) => {
+export type SetStatusActionType = ReturnType<typeof setAppStatus>
+export const setAppStatus = (status: string | null) => {
     return {
-        type: APP_ACTIONS.SIGN_UP_SUCCESS,
-        payload,
+        type: APP_ACTIONS.SET_STATUS,
+        status,
     } as const
 }
 
@@ -64,6 +64,19 @@ export const fetchAuthMe = (): ThunkType => dispatch => {
             dispatch(authMe(true))
         })
         .catch((e) => {
+            dispatch(authMe(false))
+            const error = e.response ? e.response.data.error : e.message;
+        })
+}
+
+export const login = (): ThunkType => dispatch => {
+    authAPI.login()
+        .then((res) => {
+            dispatch(authMe(true))
+            dispatch(setAppStatus('sign in success'))
+        })
+        .catch((e) => {
+            dispatch(authMe(false))
             dispatch(authMe(false))
             const error = e.response ? e.response.data.error : e.message;
         })

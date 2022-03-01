@@ -1,7 +1,7 @@
 import React, {MouseEvent, useState} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import {PATH} from "../constants";
+import {PATH} from "../../constants";
 import {ListMenuItem} from "./ListMenuItem";
 
 export const ListMenu = () => {
