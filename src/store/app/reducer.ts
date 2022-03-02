@@ -4,7 +4,7 @@ import {authAPI} from "../../api";
 export type AppStateType = {
     error: string | null
     status: string | null
-    auth: boolean
+    isAuth: boolean
 }
 
 export enum APP_ACTIONS {
@@ -17,7 +17,7 @@ export type AppActionsType = AuthMeActionType | SetErrorActionType | SetStatusAc
 
 const initState: AppStateType = {
     error: null,
-    auth: false,
+    isAuth: false,
     status: null,
 }
 
