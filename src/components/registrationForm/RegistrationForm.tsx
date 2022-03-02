@@ -63,7 +63,7 @@ export const RegistrationForm = () => {
     }
 
     return (
-        <Box component="form" noValidate aria-autocomplete='none' onSubmit={handleSubmit(onSubmit)}
+        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}
              sx={{mt: 3}}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -77,7 +77,6 @@ export const RegistrationForm = () => {
                             required
                             label='Email'
                             type='email'
-                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
@@ -100,6 +99,7 @@ export const RegistrationForm = () => {
                             required
                             label='Password'
                             type='password'
+                            autoComplete="new-password"
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
@@ -124,7 +124,7 @@ export const RegistrationForm = () => {
                             required
                             label='Confirm password'
                             type='password'
-                            autoComplete='off'
+                            autoComplete="new-password"
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
