@@ -49,7 +49,7 @@ export const LoginForm = () => {
     }
 
     return (
-        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}
+        <Box component="form" noValidate aria-autocomplete='none' onSubmit={handleSubmit(onSubmit)}
              sx={{mt: 3}}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -63,7 +63,6 @@ export const LoginForm = () => {
                             required
                             label='Email'
                             type='email'
-                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
