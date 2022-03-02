@@ -4,9 +4,19 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {LoginForm} from "../components/loginForm/LoginForm";
+import {selectIsAuth} from "../store/selectors/app";
+import {useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
+import {PATH} from "../constants";
 
 
 export const Login = () => {
+
+    const isAuth = useSelector(selectIsAuth)
+
+    if (isAuth) {
+        return <Navigate to={PATH.CHANGE_PASSWORD}/>
+    }
 
     return (
         <Container component="main" maxWidth="xs">

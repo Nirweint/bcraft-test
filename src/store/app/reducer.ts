@@ -8,12 +8,12 @@ export type AppStateType = {
 }
 
 export enum APP_ACTIONS {
-    AUTH_ME = "appReducer/AUTH_ME",
+    SET_AUTH = "appReducer/SET_AUTH",
     SET_ERROR = "appReducer/SET_ERROR",
     SET_STATUS = "appReducer/SET_STATUS",
 }
 
-export type AppActionsType = AuthMeActionType | SetErrorActionType | SetStatusActionType
+export type AppActionsType = AuthMeActionType | SetErrorActionType | SetStatusActionType;
 
 const initState: AppStateType = {
     error: null,
@@ -23,20 +23,23 @@ const initState: AppStateType = {
 
 export const appReducer = (state = initState, action: AppActionsType): AppStateType => {
     switch (action.type) {
-
         case APP_ACTIONS.SET_ERROR:
             return {...state, error: action.error}
+        case APP_ACTIONS.SET_AUTH:
+            return {...state, isAuth: action.isAuth}
+        case APP_ACTIONS.SET_STATUS:
+            return {...state, status: action.status}
         default:
             return state;
     }
 }
 
 // ACTIONS
-export type AuthMeActionType = ReturnType<typeof authMe>
-export const authMe = (payload: boolean) => {
+export type AuthMeActionType = ReturnType<typeof setAuth>
+export const setAuth = (isAuth: boolean) => {
     return {
-        type: APP_ACTIONS.AUTH_ME,
-        payload,
+        type: APP_ACTIONS.SET_AUTH,
+        isAuth,
     } as const
 }
 
@@ -57,27 +60,42 @@ export const setAppError = (error: string | null) => {
 }
 
 // THUNK
-
-export const fetchAuthMe = (): ThunkType => dispatch => {
-    authAPI.me()
+export const login = (isSuccess: boolean): ThunkType => dispatch => {
+    authAPI.login(isSuccess)
         .then((res) => {
-            dispatch(authMe(true))
+            if (res.data) {
+                dispatch(setAppStatus('sign in success'))
+                dispatch(setAuth(true))
+            }
         })
         .catch((e) => {
-            dispatch(authMe(false))
-            const error = e.response ? e.response.data.error : e.message;
+            dispatch(setAppError(e.message))
+            dispatch(setAuth(false))
         })
 }
 
-export const login = (): ThunkType => dispatch => {
-    authAPI.login()
+export const register = (isSuccess: boolean): ThunkType => dispatch => {
+    authAPI.register(isSuccess)
         .then((res) => {
-            dispatch(authMe(true))
-            dispatch(setAppStatus('sign in success'))
+            if (res.data) {
+                dispatch(setAppStatus('sign up success'))
+            }
         })
         .catch((e) => {
-            dispatch(authMe(false))
-            dispatch(authMe(false))
-            const error = e.response ? e.response.data.error : e.message;
+            dispatch(setAppError(e.message))
+            dispatch(setAuth(false))
+        })
+}
+
+export const changePassword = (isSuccess: boolean): ThunkType => dispatch => {
+    authAPI.changePassword(isSuccess)
+        .then((res) => {
+            if (res.data) {
+                dispatch(setAppStatus('password changed'))
+                dispatch(setAuth(true))
+            }
+        })
+        .catch((e) => {
+            dispatch(setAppError(e.message))
         })
 }

@@ -5,6 +5,7 @@ import {Login} from "./pages/Login";
 import {ChangePassword} from "./pages/ChangePassword";
 import {PATH} from "./constants";
 import {Header} from "./components/header/Header";
+import {StatusSnackbar} from "./components/statusSnackbar/StatusSnackbar";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
                 <Route path={PATH.CHANGE_PASSWORD} element={<ChangePassword/>}/>
             </Routes>
+            <StatusSnackbar/>
         </>
     );
 }

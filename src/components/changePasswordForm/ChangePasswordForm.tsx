@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Grid from "@mui/material/Grid";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import TextField from "@mui/material/TextField";
@@ -6,6 +6,9 @@ import {passwordValidation} from "../../utils/validators";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {errorStyle} from "../../common/styles";
+import {getLocalStorageState, setLocalStorageState} from "../../localStorage";
+import {changePassword} from "../../store/app/reducer";
+import {useDispatch} from "react-redux";
 
 type ChangePasswordFormInputsType = {
     oldPassword: string;
@@ -15,16 +18,36 @@ type ChangePasswordFormInputsType = {
 
 export const ChangePasswordForm = () => {
 
+    const dispatch = useDispatch()
+
+    const defaultState: ChangePasswordFormInputsType = {
+        oldPassword: '',
+        password: '',
+        confirmPassword: '',
+    }
+
+    const defaultFormFromLocalStorage = getLocalStorageState<ChangePasswordFormInputsType>('changePassword', defaultState)
+
+    const [inputValues, setInputValues] = useState(defaultFormFromLocalStorage)
+
     const {
         control,
         formState: {errors},
+        getValues,
+        setValue,
         setError,
         handleSubmit
     } = useForm<ChangePasswordFormInputsType>();
 
     const onSubmit: SubmitHandler<ChangePasswordFormInputsType> = data => {
         if (data.password === data.confirmPassword) {
+            setValue('oldPassword', '')
+            setValue('password', '')
+            setValue('confirmPassword', '')
+            setLocalStorageState('changePassword', defaultState)
             console.log(data)
+            // change isSuccess on false, to get rejected promise
+            dispatch(changePassword(true))
         } else {
             setError("confirmPassword", {
                 type: "confirm",
@@ -32,6 +55,12 @@ export const ChangePasswordForm = () => {
             });
         }
     };
+
+    const handleInputChange = () => {
+        const inputValues = getValues()
+        setInputValues(inputValues)
+        setLocalStorageState('changePassword', inputValues)
+    }
 
 
     return (
@@ -45,12 +74,16 @@ export const ChangePasswordForm = () => {
                         rules={{
                             required: "Please enter old password",
                         }}
-                        defaultValue=""
+                        defaultValue={inputValues.oldPassword}
                         render={({field}) => <TextField
                             {...field}
                             required
-                            label={'Old password'}
+                            label='Old password'
                             fullWidth
+                            onChange={(e) => {
+                                field.onChange(e);
+                                handleInputChange()
+                            }}
                         />}
                     />
                     <Grid item style={errorStyle}>
@@ -62,12 +95,17 @@ export const ChangePasswordForm = () => {
                         name="password"
                         control={control}
                         rules={passwordValidation}
-                        defaultValue=""
+                        defaultValue={inputValues.password}
                         render={({field}) => <TextField
                             {...field}
                             required
-                            label={'Password'}
+                            label='Password'
+                            type='password'
                             fullWidth
+                            onChange={(e) => {
+                                field.onChange(e);
+                                handleInputChange()
+                            }}
                         />}
                     />
                     <Grid item style={errorStyle}>
@@ -81,12 +119,17 @@ export const ChangePasswordForm = () => {
                         rules={{
                             required: "Please confirm your password",
                         }}
-                        defaultValue=""
+                        defaultValue={inputValues.confirmPassword}
                         render={({field}) => <TextField
                             {...field}
                             required
-                            label={'Confirm password'}
+                            label='Confirm password'
+                            type='password'
                             fullWidth
+                            onChange={(e) => {
+                                field.onChange(e);
+                                handleInputChange()
+                            }}
                         />}
                     />
                     <Grid item style={errorStyle}>
