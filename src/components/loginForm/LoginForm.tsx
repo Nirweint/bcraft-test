@@ -63,6 +63,7 @@ export const LoginForm = () => {
                             required
                             label='Email'
                             type='email'
+                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
@@ -85,6 +86,7 @@ export const LoginForm = () => {
                             required
                             label='Password'
                             type='password'
+                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);

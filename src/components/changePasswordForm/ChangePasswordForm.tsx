@@ -80,6 +80,7 @@ export const ChangePasswordForm = () => {
                             required
                             label='Old password'
                             fullWidth
+                            autoComplete='off'
                             onChange={(e) => {
                                 field.onChange(e);
                                 handleInputChange()
@@ -101,6 +102,7 @@ export const ChangePasswordForm = () => {
                             required
                             label='Password'
                             type='password'
+                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
@@ -125,6 +127,7 @@ export const ChangePasswordForm = () => {
                             required
                             label='Confirm password'
                             type='password'
+                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);

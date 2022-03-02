@@ -77,6 +77,7 @@ export const RegistrationForm = () => {
                             required
                             label='Email'
                             type='email'
+                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
@@ -99,6 +100,7 @@ export const RegistrationForm = () => {
                             required
                             label='Password'
                             type='password'
+                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
@@ -123,6 +125,7 @@ export const RegistrationForm = () => {
                             required
                             label='Confirm password'
                             type='password'
+                            autoComplete='off'
                             fullWidth
                             onChange={(e) => {
                                 field.onChange(e);
