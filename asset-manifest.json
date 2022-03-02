@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/bcraft-test/static/js/main.d70a0d5f.js",
+    "index.html": "/bcraft-test/index.html",
+    "main.d70a0d5f.js.map": "/bcraft-test/static/js/main.d70a0d5f.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.d70a0d5f.js"
+  ]
+}
