@@ -29,7 +29,7 @@ export const ChangePasswordForm = () => {
 
     const defaultFormFromLocalStorage = getLocalStorageState<ChangePasswordFormInputsType>('changePassword', defaultState)
 
-    const [inputValues, setInputValues] = useState<RegistrationFormInputsType>(defaultFormFromLocalStorage)
+    const [inputValues, setInputValues] = useState<ChangePasswordFormInputsType>(defaultFormFromLocalStorage)
 
     const {
         control,
