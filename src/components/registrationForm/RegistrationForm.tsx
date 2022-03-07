@@ -28,7 +28,7 @@ export const RegistrationForm = () => {
 
     const defaultFormFromLocalStorage = getLocalStorageState<RegistrationFormInputsType>('registration', defaultState)
 
-    const [inputValues, setInputValues] = useState(defaultFormFromLocalStorage)
+    const [inputValues, setInputValues] = useState<RegistrationFormInputsType>(defaultFormFromLocalStorage)
 
     const {
         control,

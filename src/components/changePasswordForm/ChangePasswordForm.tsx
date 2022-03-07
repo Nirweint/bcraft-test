@@ -9,6 +9,7 @@ import {errorStyle} from "../../common/styles";
 import {getLocalStorageState, setLocalStorageState} from "../../localStorage";
 import {changePassword} from "../../store/app/reducer";
 import {useDispatch} from "react-redux";
+import {RegistrationFormInputsType} from "../registrationForm/RegistrationForm";
 
 type ChangePasswordFormInputsType = {
     oldPassword: string;
@@ -28,7 +29,7 @@ export const ChangePasswordForm = () => {
 
     const defaultFormFromLocalStorage = getLocalStorageState<ChangePasswordFormInputsType>('changePassword', defaultState)
 
-    const [inputValues, setInputValues] = useState(defaultFormFromLocalStorage)
+    const [inputValues, setInputValues] = useState<RegistrationFormInputsType>(defaultFormFromLocalStorage)
 
     const {
         control,

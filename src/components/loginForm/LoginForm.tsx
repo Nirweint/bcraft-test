@@ -23,7 +23,7 @@ export const LoginForm = () => {
     }
     const defaultFormFromLocalStorage = getLocalStorageState<LoginFormInputsType>('login', defaultState)
 
-    const [inputValues, setInputValues] = useState(defaultFormFromLocalStorage)
+    const [inputValues, setInputValues] = useState<LoginFormInputsType>(defaultFormFromLocalStorage)
 
     const {
         control,
